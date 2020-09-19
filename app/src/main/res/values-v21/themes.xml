@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Owl.Blue" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSurface">@color/surfaceColor</item>
+
+        <item name="colorOnPrimary">@color/onPrimaryColor</item>
+        <item name="colorOnSecondary">@color/onSecondaryColor</item>
+        <item name="colorOnSurface">@color/onSurfaceColor</item>
+
+        <item name="colorPrimaryVariant">@color/primaryColorVariant</item>
+        <item name="colorSecondaryVariant">@color/secondaryColorVariant</item>
+        <item name="colorError">@color/errorColor</item>
+
+    </style>
+</resources>

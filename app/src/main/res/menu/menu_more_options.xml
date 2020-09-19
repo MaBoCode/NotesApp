@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/grpOptionsMenu">
+        <item
+            android:id="@+id/itmSetLightTheme"
+            android:title="@string/common_light"
+            app:showAsAction="never" />
+        <item
+            android:id="@+id/itmSetDarkTheme"
+            android:title="@string/common_dark"
+            app:showAsAction="never" />
+    </group>
+</menu>

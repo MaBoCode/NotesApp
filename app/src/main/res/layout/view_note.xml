@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewNoteCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:background="?attr/colorSurface"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        >
+
+        <TextView
+            android:id="@+id/txtNoteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline5"
+            android:gravity="center_vertical"
+            android:text="Note title"
+            />
+
+        <TextView
+            android:id="@+id/txtNoteDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:text="September 16"
+            android:alpha="0.6"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/txtNoteTitle"
+            />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
