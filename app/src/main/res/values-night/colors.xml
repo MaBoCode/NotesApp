@@ -3,16 +3,16 @@
 
     <color name="primaryColor">#0336ff</color>
     <color name="secondaryColor">#0035c9</color>
-    <color name="tertiaryColor">#ffd303</color>
-    <color name="surfaceColor">#ffffff</color>
+    <color name="tertiaryColor">#ffc000</color>
+    <color name="surfaceColor">#040407</color>
 
-    <color name="onPrimaryColor">#ffffff</color>
-    <color name="onPrimarySurfaceColor">#DFE2EA</color>
+    <color name="onPrimaryColor">#171C26</color>
+    <color name="onPrimarySurfaceColor">#171C26</color>
     <color name="onSecondaryColor">#ffffff</color>
-    <color name="onSurfaceColor">#040407</color>
+    <color name="onSurfaceColor">#ffffff</color>
 
     <color name="primaryColorVariant">#0035c9</color>
-    <color name="tertiaryColorVariant">#ffc000</color>
+    <color name="tertiaryColorVariant">#ffd303</color>
     <color name="errorColor">#b00020</color>
 
     <color name="lightGrayColor">#DFE2EA</color>

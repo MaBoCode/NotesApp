@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/viewNoteCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginTop="10dp"
-    app:cardCornerRadius="8dp"
-    app:cardUseCompatPadding="true"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    android:layout_marginTop="15dp"
     android:foreground="?attr/selectableItemBackground"
-    android:background="?attr/colorSurface"
+    app:cardBackgroundColor="?attr/colorOnPrimarySurface"
+    android:layout_gravity="center_horizontal"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         >
@@ -26,21 +25,52 @@
             android:id="@+id/txtNoteTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:gravity="center_vertical"
-            android:text="Note title"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textStyle="bold"
+            android:text="Title"
+            />
+
+        <TextView
+            android:id="@+id/txtNoteContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_note_content"
+            android:maxLines="10"
+            android:ellipsize="end"
+            android:lineHeight="19sp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/txtNoteTitle"
+            />
+
+        <TextView
+            android:id="@+id/txtNoteTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:background="@drawable/bg_border"
+            android:layout_below="@id/txtNoteContent"
+            android:alpha="0.6"
+            android:text="Tag"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_alignParentLeft="true"
             />
 
         <TextView
             android:id="@+id/txtNoteDate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:text="September 16"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:text="Sep 13, 8:00"
+            android:layout_alignParentRight="true"
             android:alpha="0.6"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/txtNoteTitle"
-            />
+            android:layout_below="@id/txtNoteContent"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

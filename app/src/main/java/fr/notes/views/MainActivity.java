@@ -2,15 +2,14 @@ package fr.notes.views;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.squareup.otto.Subscribe;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -21,7 +20,9 @@ import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseActivity;
 import fr.notes.injects.bus.AppBus;
+import fr.notes.utils.AppThemeUtils;
 import fr.notes.utils.Logs;
+import fr.notes.utils.Prefs;
 import fr.notes.views.events.ShowFragmentEvent;
 
 @EActivity(R.layout.act_main)
@@ -33,7 +34,9 @@ public class MainActivity extends BaseActivity {
     protected LoginViewModel loginViewModel;
 
     @ViewById
-    protected Toolbar tlbMain;
+    protected Toolbar tlbHome;
+    @ViewById
+    protected SwitchCompat swtTheme;
 
     protected Bundle lastSavedInstanceState;
 
@@ -53,10 +56,7 @@ public class MainActivity extends BaseActivity {
     @AfterViews
     public void bind() {
 
-        setSupportActionBar(tlbMain);
-
-        getSupportActionBar().setTitle("Notes");
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        swtTheme.setChecked(Prefs.getPrefEnableDarkMode(appContext));
 
         displayFirstFragment();
     }
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity {
 
         if (lastSavedInstanceState == null) {
             ShowFragmentEvent event = new ShowFragmentEvent(MainFragment_.builder().build());
-            event.replace = true;
+            event.replace = false;
             event.addToBackStack = true;
             showFragment(event);
         }
@@ -74,8 +74,6 @@ public class MainActivity extends BaseActivity {
     @Subscribe
     @UiThread(propagation = UiThread.Propagation.REUSE)
     public void showFragment(ShowFragmentEvent event) {
-
-        Logs.debug(this, "[DEBUG] here");
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -94,11 +92,12 @@ public class MainActivity extends BaseActivity {
         transaction.commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    @CheckedChange(R.id.swtTheme)
+    public void switchTheme(boolean isChecked) {
+        Logs.debug(this, "[DEBUG] switch");
 
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Prefs.setPrefEnableDarkMode(appContext, isChecked);
+
+        AppThemeUtils.enableDarkMode(isChecked);
     }
 }

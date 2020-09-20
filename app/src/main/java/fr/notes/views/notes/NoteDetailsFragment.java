@@ -1,18 +1,13 @@
 package fr.notes.views.notes;
 
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.transition.TransitionInflater;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.FragmentArg;
-import org.androidannotations.annotations.InjectMenu;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
 
@@ -42,9 +37,6 @@ public class NoteDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (note != null) {
             display(note);

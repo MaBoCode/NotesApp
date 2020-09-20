@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Owl.Blue" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Owl" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+        <item name="android:animationDuration">3000</item>
+    </style>
+
+    <style name="Theme.Owl.Blue" parent="Theme.Owl">
         <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimarySurface">@color/surfaceColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSurface">@color/surfaceColor</item>
 
         <item name="colorOnPrimary">@color/onPrimaryColor</item>
+        <item name="colorOnPrimarySurface">@color/onPrimarySurfaceColor</item>
         <item name="colorOnSecondary">@color/onSecondaryColor</item>
         <item name="colorOnSurface">@color/onSurfaceColor</item>
 
         <item name="colorPrimaryVariant">@color/primaryColorVariant</item>
-        <item name="colorSecondaryVariant">@color/secondaryColorVariant</item>
         <item name="colorError">@color/errorColor</item>
+
+        <item name="android:windowBackground">@color/surfaceColor</item>
+
+        <item name="android:textColor">@color/onSurfaceColor</item>
+        <item name="android:textColorPrimary">@color/onSurfaceColor</item>
+        <item name="android:textColorSecondary">@color/darkGrayColor</item>
 
     </style>
 
-    <style name="Widget.Theme.Black.BottomNavigation" parent="Theme.Owl.Blue">
+    <style name="Widget.Theme.Black.BottomNavigation" parent="Theme.Owl">
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
         <item name="colorPrimary">@color/onSurfaceColor</item>
+    </style>
+    
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

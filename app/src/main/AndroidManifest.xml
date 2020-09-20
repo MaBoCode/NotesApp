@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Owl.Blue">
-        <activity android:name="fr.notes.views.MainActivity_">
+        <activity android:name="fr.notes.views.MainActivity_"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -8,6 +8,8 @@
         android:id="@+id/lstNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingBottom="40dp"
         tools:listitem="@layout/view_note"
         />
 </merge>

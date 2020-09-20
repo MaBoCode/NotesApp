@@ -1,18 +1,15 @@
 package fr.notes.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.transition.TransitionInflater;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +23,13 @@ import fr.notes.views.notes.NoteDetailsFragment_;
 import fr.notes.views.notes.NotesListView;
 
 @EFragment(R.layout.frg_main)
-@OptionsMenu(R.menu.menu_more_options)
 public class MainFragment extends BaseFragment {
 
     @ViewById
     protected NotesListView viewNotes;
+
+    @StringRes(R.string.default_note_content)
+    String default_note_content;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,9 +44,11 @@ public class MainFragment extends BaseFragment {
 
         List<NoteModel> notes = new ArrayList<>();
 
-        for (int i = 0; i < 20; i++) {
-            notes.add(new NoteModel("Note " + i, "Some content", "September 16"));
-        }
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
 
         viewNotes.bind(notes);
     }
@@ -69,15 +70,5 @@ public class MainFragment extends BaseFragment {
         event.replace = true;
         event.addToBackStack = true;
         bus.post(event);
-    }
-
-    @OptionsItem(R.id.itmSetLightTheme)
-    public void setLightTheme() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-    }
-
-    @OptionsItem(R.id.itmSetDarkTheme)
-    public void setDarkTheme() {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 }
