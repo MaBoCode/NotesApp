@@ -12,13 +12,13 @@
     android:layout_gravity="center_horizontal"
     >
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         >
 
         <TextView
@@ -28,6 +28,9 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:textStyle="bold"
             android:text="Title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             />
 
         <TextView
@@ -35,44 +38,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/default_note_content"
-            android:maxLines="10"
             android:ellipsize="end"
             android:lineHeight="19sp"
+            android:maxLines="15"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_below="@id/txtNoteTitle"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/txtNoteTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lyCardBottom"
             />
 
-        <TextView
-            android:id="@+id/txtNoteTag"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/lyCardBottom"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:background="@drawable/bg_border"
-            android:layout_below="@id/txtNoteContent"
-            android:alpha="0.6"
-            android:text="Tag"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:layout_alignParentLeft="true"
-            />
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <TextView
+                android:id="@+id/txtNoteTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:background="@drawable/bg_border"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:alpha="0.6"
+                android:text="Tag"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
 
-        <TextView
-            android:id="@+id/txtNoteDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceCaption"
-            android:text="Sep 13, 8:00"
-            android:layout_alignParentRight="true"
-            android:alpha="0.6"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/txtNoteContent"
-            android:layout_alignParentEnd="true" />
+            <TextView
+                android:id="@+id/txtNoteDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceCaption"
+                android:layout_alignBaseline="@id/txtNoteTag"
+                android:text="Sep 13, 8:00"
+                android:alpha="0.6"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

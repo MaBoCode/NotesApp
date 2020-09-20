@@ -3,13 +3,17 @@ package fr.notes.views.notes;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -19,7 +23,7 @@ import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseConstraintLayout;
 import fr.notes.models.NoteModel;
-import fr.notes.views.notes.adapters.NotesRecycleAdapter;
+import fr.notes.views.notes.adapters.NotesCardViewRecycleAdapter;
 
 @EViewGroup(R.layout.view_notes_list)
 public class NotesListView extends BaseConstraintLayout {
@@ -31,6 +35,8 @@ public class NotesListView extends BaseConstraintLayout {
 
     private LinearLayoutManager layoutManager;
     private GridLayoutManager gridLayoutManager;
+
+    protected boolean isDisplaying = false;
 
     public NotesListView(Context context) {
         super(context);
@@ -56,19 +62,30 @@ public class NotesListView extends BaseConstraintLayout {
         }
     }
 
+    @UiThread(propagation = UiThread.Propagation.REUSE)
     public void display() {
 
-        if (gridLayoutManager == null) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-            lstNotes.setLayoutManager(staggeredGridLayoutManager);
-        }
+        if (notes != null) {
 
-        NotesRecycleAdapter notesRecycleAdapter = new NotesRecycleAdapter(uiContext, notes);
-        lstNotes.setAdapter(notesRecycleAdapter);
+            lstNotes.removeAllViews();
+            lstNotes.setVisibility(notes.isEmpty() ? GONE : VISIBLE);
+
+            if (gridLayoutManager == null) {
+                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                lstNotes.setLayoutManager(staggeredGridLayoutManager);
+            }
+
+            NotesCardViewRecycleAdapter notesCardViewRecycleAdapter = new NotesCardViewRecycleAdapter(uiContext, notes);
+            lstNotes.setAdapter(notesCardViewRecycleAdapter);
+
+            isDisplaying = true;
+        }
     }
 
     public void bind(List<NoteModel> notes) {
-        this.notes = notes;
-        display();
+        if (notes != null) {
+            this.notes = notes;
+            display();
+        }
     }
 }

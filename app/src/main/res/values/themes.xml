@@ -3,7 +3,6 @@
 
     <style name="Theme.Owl" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
-        <item name="android:animationDuration">3000</item>
     </style>
 
     <style name="Theme.Owl.Blue" parent="Theme.Owl">

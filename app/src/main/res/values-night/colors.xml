@@ -18,4 +18,6 @@
     <color name="lightGrayColor">#DFE2EA</color>
     <color name="darkGrayColor">#171C26</color>
 
+    <color name="borderColor">#171C26</color>
+
 </resources>

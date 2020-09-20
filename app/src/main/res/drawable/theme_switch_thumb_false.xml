@@ -3,11 +3,12 @@
     <item>
         <shape android:shape="oval">
             <solid android:color="@color/tertiaryColor"/>
-            <size android:height="24dp" android:width="24dp"/>
         </shape>
     </item>
     <item
         android:drawable="@drawable/ic_days_filled"
+        android:width="18dp"
+        android:height="18dp"
         android:left="6dp"
         android:right="6dp"
         android:top="6dp"

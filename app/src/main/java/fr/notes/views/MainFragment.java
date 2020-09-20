@@ -41,26 +41,7 @@ public class MainFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-
-        List<NoteModel> notes = new ArrayList<>();
-
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-
-        viewNotes.bind(notes);
+        display();
     }
 
     @Override
@@ -80,5 +61,29 @@ public class MainFragment extends BaseFragment {
         event.replace = true;
         event.addToBackStack = true;
         bus.post(event);
+    }
+
+    public void display() {
+        List<NoteModel> notes = new ArrayList<>();
+
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+
+        if (!isDetached()) {
+            viewNotes.bind(notes);
+        }
     }
 }
