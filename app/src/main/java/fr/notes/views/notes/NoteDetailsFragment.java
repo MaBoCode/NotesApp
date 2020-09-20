@@ -38,6 +38,8 @@ public class NoteDetailsFragment extends BaseFragment {
     @AfterViews
     public void init() {
 
+
+
         if (note != null) {
             display(note);
         }

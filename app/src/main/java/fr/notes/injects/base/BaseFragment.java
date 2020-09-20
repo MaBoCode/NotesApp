@@ -53,8 +53,4 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public abstract void setTransitions();
-
-    public void restartActivity() {
-        getActivity().recreate();
-    }
 }

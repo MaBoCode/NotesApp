@@ -3,9 +3,9 @@ package fr.notes.views;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.squareup.otto.Subscribe;
 
 import org.androidannotations.annotations.AfterViews;
@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
     protected LoginViewModel loginViewModel;
 
     @ViewById
-    protected Toolbar tlbHome;
+    protected MaterialToolbar tlbHome;
     @ViewById
     protected SwitchCompat swtTheme;
 

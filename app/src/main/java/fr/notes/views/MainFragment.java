@@ -49,6 +49,16 @@ public class MainFragment extends BaseFragment {
         notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
         notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
         notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
 
         viewNotes.bind(notes);
     }
