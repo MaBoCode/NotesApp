@@ -3,12 +3,9 @@ package fr.notes.views.notes;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -66,7 +63,6 @@ public class NotesListView extends BaseConstraintLayout {
     public void display() {
 
         if (notes != null) {
-
             lstNotes.removeAllViews();
             lstNotes.setVisibility(notes.isEmpty() ? GONE : VISIBLE);
 

@@ -3,6 +3,7 @@ package fr.notes.views;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.appbar.MaterialToolbar;
@@ -34,9 +35,7 @@ public class MainActivity extends BaseActivity {
     protected LoginViewModel loginViewModel;
 
     @ViewById
-    protected MaterialToolbar tlbHome;
-    @ViewById
-    protected SwitchCompat swtTheme;
+    protected Toolbar tlbMain;
 
     protected Bundle lastSavedInstanceState;
 
@@ -56,7 +55,12 @@ public class MainActivity extends BaseActivity {
     @AfterViews
     public void bind() {
 
-        swtTheme.setChecked(Prefs.getPrefEnableDarkMode(appContext));
+        Prefs.setPrefEnableDarkMode(appContext, true);
+
+        AppThemeUtils.enableDarkMode(true);
+
+        setSupportActionBar(tlbMain);
+        getSupportActionBar().setTitle(getString(R.string.common_title_notes));
 
         displayFirstFragment();
     }

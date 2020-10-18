@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
     >
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lstNotes"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="40dp"
         tools:listitem="@layout/view_note"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:scrollbars="vertical"
         />
+
 </merge>

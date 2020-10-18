@@ -27,13 +27,15 @@
         <item name="android:textColorPrimary">@color/onSurfaceColor</item>
         <item name="android:textColorSecondary">@color/darkGrayColor</item>
 
+        <item name="appBarLayoutStyle">@style/OwlAppBarLayoutStyle</item>
+
     </style>
 
     <style name="Widget.Theme.Black.BottomNavigation" parent="Theme.Owl">
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
         <item name="colorPrimary">@color/onSurfaceColor</item>
     </style>
-    
+
     <style name="WindowAnimationTransition">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>

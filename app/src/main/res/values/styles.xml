@@ -1,4 +1,8 @@
 <resources>
 
+    <style name="OwlAppBarLayoutStyle">
+        <item name="titleTextColor">@color/onSurfaceColor</item>
+        <item name="background">@color/surfaceColor</item>
+    </style>
 
 </resources>
