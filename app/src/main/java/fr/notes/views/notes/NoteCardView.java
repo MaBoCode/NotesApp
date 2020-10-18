@@ -27,6 +27,7 @@ import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.utils.DimUtils;
 import fr.notes.utils.Logs;
+import fr.notes.views.base.BaseRenderedTextView;
 import fr.notes.views.events.ShowFragmentEvent;
 
 @EViewGroup(R.layout.view_note)
@@ -42,8 +43,6 @@ public class NoteCardView extends BaseFrameLayout {
     protected TextView txtNoteDate;
 
     protected NoteModel noteModel;
-
-    protected Integer maxLines;
 
     public NoteCardView(@NonNull Context context) {
         super(context);
@@ -76,11 +75,10 @@ public class NoteCardView extends BaseFrameLayout {
     public void display() {
 
         if (noteModel != null) {
-            if (maxLines == null) {
-                maxLines = getRandomIntInRange(5, 15);
-                txtNoteContent.setMaxLines(maxLines);
-            }
+            int contentMaxLines = noteModel.getLineCount() / 15;
+            txtNoteContent.setMaxLines(contentMaxLines);
             txtNoteTitle.setText(noteModel.getNoteTitle());
+            txtNoteContent.setText(noteModel.getNoteContent());
             txtNoteDate.setText(noteModel.getNoteTimeStamp());
         }
     }
@@ -98,16 +96,10 @@ public class NoteCardView extends BaseFrameLayout {
 
     }
 
-    public Integer getRandomIntInRange(Integer min, Integer max) {
-        Random random = new Random();
-        return random.nextInt(max - min) + min;
-    }
-
     public void setNoteModel(NoteModel noteModel) {
         if (noteModel != null) {
             this.noteModel = noteModel;
             display();
         }
-
     }
 }

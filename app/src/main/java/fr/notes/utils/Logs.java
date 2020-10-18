@@ -42,13 +42,12 @@ public class Logs {
         }
 
         public Builder method() {
+            this.method = Thread.currentThread().getStackTrace()[4].getMethodName();
 
             if (method.equals("verbose") || method.equals("debug")
                     || method.equals("info") || method.equals("method")
                     || method.equals("warn") || method.equals("error")) {
                 this.method = Thread.currentThread().getStackTrace()[5].getMethodName();
-            } else {
-                this.method = Thread.currentThread().getStackTrace()[4].getMethodName();
             }
 
             return this;

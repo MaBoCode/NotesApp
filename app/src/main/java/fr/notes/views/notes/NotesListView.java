@@ -30,8 +30,7 @@ public class NotesListView extends BaseConstraintLayout {
 
     private List<NoteModel> notes = new ArrayList<>();
 
-    private LinearLayoutManager layoutManager;
-    private GridLayoutManager gridLayoutManager;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     protected boolean isDisplaying = false;
 
@@ -66,8 +65,8 @@ public class NotesListView extends BaseConstraintLayout {
             lstNotes.removeAllViews();
             lstNotes.setVisibility(notes.isEmpty() ? GONE : VISIBLE);
 
-            if (gridLayoutManager == null) {
-                StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            if (staggeredGridLayoutManager == null) {
+                staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 lstNotes.setLayoutManager(staggeredGridLayoutManager);
             }
 
