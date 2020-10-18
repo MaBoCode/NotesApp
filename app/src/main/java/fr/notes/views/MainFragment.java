@@ -18,6 +18,7 @@ import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.models.NoteModel;
+import fr.notes.utils.Logs;
 import fr.notes.views.events.ShowFragmentEvent;
 import fr.notes.views.notes.NoteDetailsFragment_;
 import fr.notes.views.notes.NotesListView;
@@ -27,9 +28,6 @@ public class MainFragment extends BaseFragment {
 
     @ViewById
     protected NotesListView viewNotes;
-
-    @StringRes(R.string.default_note_content)
-    String default_note_content;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,22 +63,22 @@ public class MainFragment extends BaseFragment {
 
     public void display() {
         List<NoteModel> notes = new ArrayList<>();
-
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        Logs.debug(this, "content: " + getString(R.string.default_note_content));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
         notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", default_note_content, "Sun, 8:00"));
+        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
 
         if (!isDetached()) {
             viewNotes.bind(notes);
