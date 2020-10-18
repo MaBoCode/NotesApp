@@ -3,8 +3,6 @@ package fr.notes.views.notes;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,15 +17,12 @@ import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Random;
-
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.utils.DimUtils;
 import fr.notes.utils.Logs;
-import fr.notes.views.base.BaseRenderedTextView;
 import fr.notes.views.events.ShowFragmentEvent;
 
 @EViewGroup(R.layout.view_note)
@@ -75,11 +70,11 @@ public class NoteCardView extends BaseFrameLayout {
     public void display() {
 
         if (noteModel != null) {
-            int contentMaxLines = noteModel.getLineCount() / 15;
-            txtNoteContent.setMaxLines(contentMaxLines);
             txtNoteTitle.setText(noteModel.getNoteTitle());
             txtNoteContent.setText(noteModel.getNoteContent());
             txtNoteDate.setText(noteModel.getNoteTimeStamp());
+
+            txtNoteContent.setMaxLines(10);
         }
     }
 
