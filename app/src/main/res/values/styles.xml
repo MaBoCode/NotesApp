@@ -1,8 +1,36 @@
 <resources>
 
-    <style name="OwlAppBarLayoutStyle">
+    <style name="AppBarLayoutStyle" parent="Theme.Owl.Blue">
         <item name="titleTextColor">@color/onSurfaceColor</item>
         <item name="background">@color/surfaceColor</item>
+    </style>
+
+    <style name="TextAppearance.Headline4" parent="">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="TextAppearance.Headline6" parent="">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextAppearance.Body1" parent="">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="TextAppearance.Body2" parent="">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Caption" parent="">
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>
