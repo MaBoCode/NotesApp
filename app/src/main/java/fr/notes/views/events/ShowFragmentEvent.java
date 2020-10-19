@@ -8,6 +8,7 @@ public class ShowFragmentEvent {
     public Fragment fragment = null;
     public boolean addToBackStack = true;
     public boolean replace = false;
+    public Integer[] animations = null;
 
     public ShowFragmentEvent(Fragment fragment) {
         this.fragment = fragment;
