@@ -123,8 +123,27 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-        Prefs.setPrefEnableDarkMode(appContext, isChecked);
+    @Override
+    public void onBackPressed() {
+        Logs.debug(this, "[DEBUG] fragments: " + fragments.size());
 
-        AppThemeUtils.enableDarkMode(isChecked);
+        if (!lastFragmentOnBackPressed()) {
+            if (fragments.size() > 1) {
+                popFragment(new PopFragmentEvent());
+            }
+        } else {
+            Logs.debug(this, "[DEBUG] finish");
+            finish();
+        }
+    }
+
+    public boolean lastFragmentOnBackPressed() {
+        if (!fragments.isEmpty()) {
+            Fragment lastFragment = fragments.getLast();
+            if (lastFragment instanceof BaseFragment) {
+                return ((BaseFragment) lastFragment).onBackPressed();
+            }
+        }
+        return false;
     }
 }
