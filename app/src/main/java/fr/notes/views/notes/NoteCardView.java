@@ -1,13 +1,11 @@
 package fr.notes.views.notes;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -21,8 +19,6 @@ import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
-import fr.notes.utils.DimUtils;
-import fr.notes.utils.Logs;
 import fr.notes.views.events.ShowFragmentEvent;
 
 @EViewGroup(R.layout.view_note)
@@ -49,11 +45,6 @@ public class NoteCardView extends BaseFrameLayout {
 
     public NoteCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public NoteCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
