@@ -3,7 +3,8 @@ package fr.notes.views.notes;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.transition.TransitionInflater;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -24,7 +25,9 @@ public class NoteDetailsFragment extends BaseFragment {
     protected NoteModel note;
 
     @ViewById
-    protected TextView txtNoteTitle;
+    protected Toolbar tlbMain;
+    @ViewById
+    protected EditText edtNoteTitle;
     @ViewById
     protected TextView txtNoteDate;
     @ViewById
@@ -37,6 +40,9 @@ public class NoteDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+        tlbMain.setTitle("");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(tlbMain);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (note != null) {
             display(note);
@@ -45,13 +51,13 @@ public class NoteDetailsFragment extends BaseFragment {
 
     @Override
     public void setTransitions() {
-        TransitionInflater inflater = TransitionInflater.from(uiContext);
-        setEnterTransition(inflater.inflateTransition(R.transition.slide_right));
+
     }
 
     public void display(NoteModel note) {
-        txtNoteTitle.setText(note.getNoteTitle());
+        edtNoteTitle.setText(note.getNoteTitle());
         txtNoteDate.setText(note.getNoteTimeStamp());
         edtNoteContent.setText(note.getNoteContent());
+        //TODO: Decrease title font size if line > 1
     }
 }
