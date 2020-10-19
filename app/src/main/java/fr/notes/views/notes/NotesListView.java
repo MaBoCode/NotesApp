@@ -3,8 +3,6 @@ package fr.notes.views.notes;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -20,6 +18,7 @@ import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseConstraintLayout;
 import fr.notes.models.NoteModel;
+import fr.notes.utils.Logs;
 import fr.notes.views.notes.adapters.NotesCardViewRecycleAdapter;
 
 @EViewGroup(R.layout.view_notes_list)
@@ -78,9 +77,11 @@ public class NotesListView extends BaseConstraintLayout {
     }
 
     public void bind(List<NoteModel> notes) {
+        Logs.debug(this, "");
         if (notes != null) {
             this.notes = notes;
             display();
+            //TODO: notifyDataSetChanged
         }
     }
 }
