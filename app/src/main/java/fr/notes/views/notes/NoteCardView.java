@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.google.android.material.card.MaterialCardView;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
@@ -20,12 +22,13 @@ import fr.notes.R;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.views.events.ShowFragmentEvent;
+import fr.notes.views.notes.events.NoteCardSelectedEvent;
 
 @EViewGroup(R.layout.view_note)
 public class NoteCardView extends BaseFrameLayout {
 
     @ViewById
-    protected CardView viewNoteCard;
+    protected MaterialCardView viewNoteCard;
     @ViewById
     protected TextView txtNoteTitle;
     @ViewById
@@ -79,7 +82,9 @@ public class NoteCardView extends BaseFrameLayout {
 
     @LongClick(R.id.viewNoteCard)
     public void onCardLongClick() {
+        viewNoteCard.setChecked(!viewNoteCard.isChecked());
 
+        bus.post(new NoteCardSelectedEvent());
     }
 
     public void setNoteModel(NoteModel noteModel) {
