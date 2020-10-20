@@ -52,5 +52,9 @@ public abstract class BaseFragment extends Fragment {
         uiContext = null;
     }
 
+    public boolean onBackPressed() {
+        return false;
+    }
+
     public abstract void setTransitions();
 }
