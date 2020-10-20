@@ -22,6 +22,7 @@ import fr.notes.R;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.views.events.ShowFragmentEvent;
+import fr.notes.views.notes.events.NoteCardDeselectedEvent;
 import fr.notes.views.notes.events.NoteCardSelectedEvent;
 
 @EViewGroup(R.layout.view_note)
@@ -37,6 +38,8 @@ public class NoteCardView extends BaseFrameLayout {
     protected TextView txtNoteDate;
 
     protected NoteModel noteModel;
+
+    protected boolean clickToSelect = false;
 
     public NoteCardView(@NonNull Context context) {
         super(context);
@@ -74,17 +77,40 @@ public class NoteCardView extends BaseFrameLayout {
 
     @Click(R.id.viewNoteCard)
     public void onCardClick() {
-        ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(noteModel).build());
-        event.replace = true;
-        event.addToBackStack = true;
-        bus.post(event);
+
+        if (clickToSelect) {
+            boolean isChecked = viewNoteCard.isChecked();
+
+            viewNoteCard.setChecked(!isChecked);
+
+            if (isChecked) {
+                bus.post(new NoteCardDeselectedEvent());
+            } else {
+                bus.post(new NoteCardSelectedEvent());
+            }
+        } else {
+            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(noteModel).build());
+            event.replace = true;
+            event.addToBackStack = true;
+            bus.post(event);
+        }
     }
 
     @LongClick(R.id.viewNoteCard)
     public void onCardLongClick() {
-        viewNoteCard.setChecked(!viewNoteCard.isChecked());
+        boolean isChecked = viewNoteCard.isChecked();
 
-        bus.post(new NoteCardSelectedEvent());
+        viewNoteCard.setChecked(!isChecked);
+
+        if (isChecked) {
+            bus.post(new NoteCardDeselectedEvent());
+        } else {
+            bus.post(new NoteCardSelectedEvent());
+        }
+    }
+
+    public void setClickToSelect(boolean clickToSelect) {
+        this.clickToSelect = clickToSelect;
     }
 
     public void setNoteModel(NoteModel noteModel) {
