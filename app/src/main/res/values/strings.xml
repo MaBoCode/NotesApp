@@ -29,5 +29,6 @@
     <string name="menu_favorite">Favorite</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_print">Print</string>
+    <string name="template_category">Category</string>
 
 </resources>
