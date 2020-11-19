@@ -3,7 +3,9 @@ package fr.notes.core.note.webservices;
 import java.util.List;
 
 import fr.notes.core.note.Note;
+import fr.notes.core.note.NoteRequest;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -18,12 +20,14 @@ public interface NoteService {
 
     @POST("users/{userId}/notes")
     Call<Note> addNote(
-            @Path("userId") Long userId
+            @Path("userId") Long userId,
+            @Body NoteRequest request
     );
 
     @PUT("users/{userId}/notes/{noteId}")
     Call<Note> updateNote(
             @Path("userId") Long userId,
-            @Path("noteId") Long noteId
+            @Path("noteId") Long noteId,
+            @Body NoteRequest request
     );
 }

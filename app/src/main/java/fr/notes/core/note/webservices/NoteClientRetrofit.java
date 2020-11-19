@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.List;
 
 import fr.notes.core.note.Note;
+import fr.notes.core.note.NoteRequest;
 import fr.notes.injects.bus.AppBus;
 import fr.notes.utils.Logs;
 import retrofit2.Call;
@@ -39,6 +40,46 @@ public class NoteClientRetrofit implements NoteClient {
 
             @Override
             public void onFailure(Call<List<Note>> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+    }
+
+    @Override
+    public void saveNote(String title, String content, NoteClientCallback<Note> callback) {
+        long userId = 1;
+        NoteRequest request = new NoteRequest();
+        request.title = title;
+        request.content = content;
+
+        noteService.addNote(userId, request).enqueue(new Callback<Note>() {
+            @Override
+            public void onResponse(Call<Note> call, Response<Note> response) {
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Note> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+    }
+
+    @Override
+    public void editNote(Long noteId, String title, String content, NoteClientCallback<Note> callback) {
+        long userId = 1;
+        NoteRequest request = new NoteRequest();
+        request.title = title;
+        request.content = content;
+
+        noteService.updateNote(userId, noteId, request).enqueue(new Callback<Note>() {
+            @Override
+            public void onResponse(Call<Note> call, Response<Note> response) {
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Note> call, Throwable t) {
                 callback.failure(t);
             }
         });

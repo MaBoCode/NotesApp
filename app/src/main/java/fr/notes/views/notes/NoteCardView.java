@@ -88,7 +88,7 @@ public class NoteCardView extends BaseFrameLayout {
                 bus.post(new NoteCardSelectedEvent());
             }
         } else {
-            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(note).build());
+            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(note).editMode(true).build());
             event.replace = true;
             event.addToBackStack = true;
             bus.post(event);

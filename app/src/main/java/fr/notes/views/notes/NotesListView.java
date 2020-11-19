@@ -1,6 +1,7 @@
 package fr.notes.views.notes;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import fr.notes.R;
 import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseConstraintLayout;
 import fr.notes.utils.Logs;
+import fr.notes.views.base.BaseRecyclerViewAdapter;
 import fr.notes.views.notes.adapters.NotesCardViewRecycleAdapter;
 import fr.notes.views.notes.events.NoteCardDeselectedEvent;
 import fr.notes.views.notes.events.NoteCardSelectedEvent;
@@ -33,6 +35,7 @@ public class NotesListView extends BaseConstraintLayout {
 
     private List<Note> notes = new ArrayList<>();
 
+    protected NotesCardViewRecycleAdapter notesCardViewRecycleAdapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     protected int selectedCards = 0;
@@ -54,32 +57,22 @@ public class NotesListView extends BaseConstraintLayout {
         ((App) App.getAppContext()).appComponent.inject(this);
     }
 
-    @AfterViews
-    public void init() {
-        if (!isInEditMode()) {
-            display();
-        }
-    }
-
     @UiThread(propagation = UiThread.Propagation.REUSE)
     public void display() {
-
         if (notes != null) {
             lstNotes.removeAllViews();
-            lstNotes.setVisibility(notes.isEmpty() ? GONE : VISIBLE);
 
             if (staggeredGridLayoutManager == null) {
                 staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
                 lstNotes.setLayoutManager(staggeredGridLayoutManager);
             }
 
-            NotesCardViewRecycleAdapter notesCardViewRecycleAdapter = new NotesCardViewRecycleAdapter(uiContext, notes);
+            notesCardViewRecycleAdapter = new NotesCardViewRecycleAdapter(uiContext, notes);
             lstNotes.setAdapter(notesCardViewRecycleAdapter);
         }
     }
 
     public void bind(List<Note> notes) {
-        Logs.debug(this, "");
         if (notes != null) {
             this.notes = notes;
             display();

@@ -19,19 +19,30 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.EditorAction;
 import org.androidannotations.annotations.FragmentArg;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
+
+import javax.inject.Inject;
 
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
+import fr.notes.core.note.webservices.NoteClient;
+import fr.notes.core.note.webservices.NoteClientCallback;
 import fr.notes.injects.base.BaseFragment;
+import fr.notes.utils.Logs;
 
 @EFragment(R.layout.frg_note_details)
 @OptionsMenu(R.menu.menu_empty)
 public class NoteDetailsFragment extends BaseFragment {
 
+    @Inject
+    protected NoteClient noteClient;
+
     @FragmentArg
     protected Note note;
+    @FragmentArg
+    protected boolean editMode = false;
 
     @ViewById
     protected Toolbar tlbMain;
@@ -45,6 +56,8 @@ public class NoteDetailsFragment extends BaseFragment {
     protected TextView txtNoteDate;
     @ViewById
     protected EditText edtNoteContent;
+
+    protected boolean textChanged = false;
 
     @Override
     public void inject() {
@@ -100,5 +113,47 @@ public class NoteDetailsFragment extends BaseFragment {
                 grpChipCategories.removeView(chip);
             }
         });
+    }
+
+    @TextChange({R.id.edtNoteTitle, R.id.edtNoteContent})
+    void onTextChanged() {
+        textChanged = true;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+
+        if (textChanged) {
+            String noteTitle = edtNoteTitle.getText().toString();
+            String noteContent = edtNoteContent.getText().toString();
+
+            if (editMode) {
+                noteClient.editNote(note.id, noteTitle, noteContent, new NoteClientCallback<Note>() {
+                    @Override
+                    public void success(Note object) {
+
+                    }
+
+                    @Override
+                    public void failure(Throwable throwable) {
+                        Logs.error(this, throwable.getMessage());
+                    }
+                });
+            } else {
+                noteClient.saveNote(noteTitle, noteContent, new NoteClientCallback<Note>() {
+                    @Override
+                    public void success(Note note) {
+                    }
+
+                    @Override
+                    public void failure(Throwable throwable) {
+                        Logs.error(this, throwable.getMessage());
+                    }
+                });
+            }
+
+        }
+
+        return super.onBackPressed();
     }
 }

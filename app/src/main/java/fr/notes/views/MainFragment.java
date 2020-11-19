@@ -12,7 +12,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,7 +22,6 @@ import fr.notes.core.note.Note;
 import fr.notes.core.note.webservices.NoteClient;
 import fr.notes.core.note.webservices.NoteClientCallback;
 import fr.notes.injects.base.BaseFragment;
-import fr.notes.models.NoteModel;
 import fr.notes.utils.AppThemeUtils;
 import fr.notes.utils.Logs;
 import fr.notes.utils.Prefs;
@@ -45,14 +43,8 @@ public class MainFragment extends BaseFragment {
     @ViewById
     protected NotesListView viewNotes;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @AfterViews
     public void init() {
-
         tlbMain.setTitle(getString(R.string.app_name));
         display();
     }
@@ -95,7 +87,6 @@ public class MainFragment extends BaseFragment {
 
     @CheckedChange(R.id.swtTheme)
     public void switchTheme(boolean isChecked) {
-        Logs.debug(this, "[checked]" + isChecked);
 
         Prefs.setPrefEnableDarkMode(appContext, isChecked);
 
