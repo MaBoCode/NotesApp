@@ -5,13 +5,14 @@ import fr.notes.App;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.injects.modules.MainModule;
+import fr.notes.injects.modules.WebServicesModule;
 import fr.notes.views.MainActivity;
 import fr.notes.views.MainFragment;
 import fr.notes.views.notes.NoteCardView;
 import fr.notes.views.notes.NoteDetailsFragment;
 import fr.notes.views.notes.NotesListView;
 
-@Component(modules = MainModule.class)
+@Component(modules = {MainModule.class, WebServicesModule.class})
 public interface AppComponent {
 
     void inject(App injectable);
