@@ -27,6 +27,6 @@ public class NoteClientRetrofit implements NoteClient {
     @Override
     public void loadNotes() {
         Call<List<Note>> notes = noteService.getNotes(0);
-        Logs.debug(this, notes.toString());
+        Logs.debug(this, "[DEBUG]: " + notes.toString());
     }
 }
