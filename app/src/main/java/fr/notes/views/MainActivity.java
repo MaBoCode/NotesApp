@@ -29,8 +29,6 @@ public class MainActivity extends BaseActivity {
 
     @Inject
     protected AppBus bus;
-    @Inject
-    protected LoginViewModel loginViewModel;
 
     protected Bundle lastSavedInstanceState;
 
