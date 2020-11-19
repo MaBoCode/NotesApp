@@ -7,6 +7,7 @@ import java.lang.ref.WeakReference;
 
 import fr.notes.injects.AppComponent;
 import fr.notes.injects.DaggerAppComponent;
+import fr.notes.injects.modules.MainModule;
 import fr.notes.utils.AppThemeUtils;
 import fr.notes.utils.Prefs;
 
@@ -21,7 +22,9 @@ public class App extends Application {
 
         contextWeakReference = new WeakReference<>(getApplicationContext());
 
-        appComponent = DaggerAppComponent.create();
+        appComponent = DaggerAppComponent.builder()
+                .mainModule(new MainModule())
+                .build();
 
         setAppTheme();
     }

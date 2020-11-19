@@ -27,7 +27,7 @@ android {
     }
 }
 
-def daggerVersion = '2.29.1'
+def daggerVersion = '2.28.3'
 def AAVersion = '4.7.0'
 def androidMaterialVersion = '1.2.1'
 
@@ -35,7 +35,8 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
     // Dependency Injection
-    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
 

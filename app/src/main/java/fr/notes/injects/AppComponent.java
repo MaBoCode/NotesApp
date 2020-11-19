@@ -1,5 +1,7 @@
 package fr.notes.injects;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 import fr.notes.App;
 import fr.notes.injects.base.BaseFragment;
@@ -11,6 +13,7 @@ import fr.notes.views.notes.NoteCardView;
 import fr.notes.views.notes.NoteDetailsFragment;
 import fr.notes.views.notes.NotesListView;
 
+@Singleton
 @Component(modules = MainModule.class)
 public interface AppComponent {
 
