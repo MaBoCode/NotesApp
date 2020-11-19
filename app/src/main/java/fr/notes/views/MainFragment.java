@@ -15,8 +15,11 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.note.webservices.NoteClient;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.models.NoteModel;
 import fr.notes.utils.AppThemeUtils;
@@ -28,6 +31,9 @@ import fr.notes.views.notes.NotesListView;
 
 @EFragment(R.layout.frg_main)
 public class MainFragment extends BaseFragment {
+
+    @Inject
+    protected NoteClient noteClient;
 
     @ViewById
     protected Toolbar tlbMain;
@@ -44,6 +50,8 @@ public class MainFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+
+        noteClient.loadNotes();
 
         tlbMain.setTitle(getString(R.string.app_name));
         display();
