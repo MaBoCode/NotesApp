@@ -18,8 +18,8 @@ import java.util.List;
 
 import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseConstraintLayout;
-import fr.notes.models.NoteModel;
 import fr.notes.utils.Logs;
 import fr.notes.views.notes.adapters.NotesCardViewRecycleAdapter;
 import fr.notes.views.notes.events.NoteCardDeselectedEvent;
@@ -31,7 +31,7 @@ public class NotesListView extends BaseConstraintLayout {
     @ViewById
     protected RecyclerView lstNotes;
 
-    private List<NoteModel> notes = new ArrayList<>();
+    private List<Note> notes = new ArrayList<>();
 
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
@@ -78,7 +78,7 @@ public class NotesListView extends BaseConstraintLayout {
         }
     }
 
-    public void bind(List<NoteModel> notes) {
+    public void bind(List<Note> notes) {
         Logs.debug(this, "");
         if (notes != null) {
             this.notes = notes;

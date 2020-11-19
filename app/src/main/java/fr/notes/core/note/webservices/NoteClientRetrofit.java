@@ -8,6 +8,8 @@ import fr.notes.core.note.Note;
 import fr.notes.injects.bus.AppBus;
 import fr.notes.utils.Logs;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class NoteClientRetrofit implements NoteClient {
@@ -25,8 +27,20 @@ public class NoteClientRetrofit implements NoteClient {
     }
 
     @Override
-    public void loadNotes() {
-        Call<List<Note>> notes = noteService.getNotes(0);
-        Logs.debug(this, "[DEBUG]: " + notes.toString());
+    public void loadNotes(NoteClientCallback<List<Note>> callback) {
+        long userId = 1;
+        Call<List<Note>> notes = noteService.getNotes(userId);
+
+        notes.enqueue(new Callback<List<Note>>() {
+            @Override
+            public void onResponse(Call<List<Note>> call, Response<List<Note>> response) {
+                callback.success(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Note>> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
     }
 }

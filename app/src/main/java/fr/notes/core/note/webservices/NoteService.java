@@ -13,17 +13,17 @@ public interface NoteService {
 
     @GET("users/{userId}/notes")
     Call<List<Note>> getNotes(
-            @Path("userId") long userId
+            @Path("userId") Long userId
     );
 
     @POST("users/{userId}/notes")
     Call<Note> addNote(
-            @Path("userId") long userId
+            @Path("userId") Long userId
     );
 
     @PUT("users/{userId}/notes/{noteId}")
     Call<Note> updateNote(
-            @Path("userId") long userId,
-            @Path("noteId") long noteId
+            @Path("userId") Long userId,
+            @Path("noteId") Long noteId
     );
 }

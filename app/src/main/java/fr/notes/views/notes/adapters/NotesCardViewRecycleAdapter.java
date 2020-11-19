@@ -8,13 +8,14 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.notes.core.note.Note;
 import fr.notes.models.NoteModel;
 import fr.notes.views.base.BaseRecyclerViewAdapter;
 import fr.notes.views.base.RecyclerViewWrapper;
 import fr.notes.views.notes.NoteCardView;
 import fr.notes.views.notes.NoteCardView_;
 
-public class NotesCardViewRecycleAdapter extends BaseRecyclerViewAdapter<NoteModel, NoteCardView> {
+public class NotesCardViewRecycleAdapter extends BaseRecyclerViewAdapter<Note, NoteCardView> {
 
     private Context context;
 
@@ -23,7 +24,7 @@ public class NotesCardViewRecycleAdapter extends BaseRecyclerViewAdapter<NoteMod
         this.items = new ArrayList<>();
     }
 
-    public NotesCardViewRecycleAdapter(Context context, List<NoteModel> items) {
+    public NotesCardViewRecycleAdapter(Context context, List<Note> items) {
         this.context = context;
         this.items = items;
     }
@@ -41,8 +42,8 @@ public class NotesCardViewRecycleAdapter extends BaseRecyclerViewAdapter<NoteMod
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewWrapper<NoteCardView> holder, int position) {
         NoteCardView noteCardView = holder.getView();
-        NoteModel noteModel = items.get(position);
-        noteCardView.setNoteModel(noteModel);
+        Note note = items.get(position);
+        noteCardView.setNote(note);
     }
 
     @Override

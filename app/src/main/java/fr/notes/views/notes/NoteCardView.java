@@ -18,6 +18,7 @@ import org.androidannotations.annotations.ViewById;
 
 import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.views.events.ShowFragmentEvent;
@@ -36,7 +37,7 @@ public class NoteCardView extends BaseFrameLayout {
     @ViewById
     protected TextView txtNoteDate;
 
-    protected NoteModel noteModel;
+    protected Note note;
 
     protected boolean clickToSelect = false;
 
@@ -65,10 +66,9 @@ public class NoteCardView extends BaseFrameLayout {
     @UiThread(propagation = UiThread.Propagation.REUSE)
     public void display() {
 
-        if (noteModel != null) {
-            txtNoteTitle.setText(noteModel.getNoteTitle());
-            txtNoteContent.setText(noteModel.getNoteContent());
-            txtNoteDate.setText(noteModel.getNoteTimeStamp());
+        if (note != null) {
+            txtNoteTitle.setText(note.title);
+            txtNoteContent.setText(note.content);
 
             txtNoteContent.setMaxLines(10);
         }
@@ -88,7 +88,7 @@ public class NoteCardView extends BaseFrameLayout {
                 bus.post(new NoteCardSelectedEvent());
             }
         } else {
-            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(noteModel).build());
+            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(note).build());
             event.replace = true;
             event.addToBackStack = true;
             bus.post(event);
@@ -112,9 +112,9 @@ public class NoteCardView extends BaseFrameLayout {
         this.clickToSelect = clickToSelect;
     }
 
-    public void setNoteModel(NoteModel noteModel) {
-        if (noteModel != null) {
-            this.noteModel = noteModel;
+    public void setNote(Note note) {
+        if (note != null) {
+            this.note = note;
             display();
         }
     }

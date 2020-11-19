@@ -65,7 +65,6 @@ public class MainActivity extends BaseActivity {
             event.addToBackStack = true;
             showFragment(event);
         } else {
-            Logs.debug(this, "[DEBUG] not first instance state: " + fragments.size());
             fragments = new LinkedList<>(getSupportFragmentManager().getFragments());
         }
     }

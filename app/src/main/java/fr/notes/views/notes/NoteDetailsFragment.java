@@ -23,15 +23,15 @@ import org.androidannotations.annotations.ViewById;
 
 import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseFragment;
-import fr.notes.models.NoteModel;
 
 @EFragment(R.layout.frg_note_details)
 @OptionsMenu(R.menu.menu_empty)
 public class NoteDetailsFragment extends BaseFragment {
 
     @FragmentArg
-    protected NoteModel note;
+    protected Note note;
 
     @ViewById
     protected Toolbar tlbMain;
@@ -67,10 +67,9 @@ public class NoteDetailsFragment extends BaseFragment {
 
     }
 
-    public void display(NoteModel note) {
-        edtNoteTitle.setText(note.getNoteTitle());
-        txtNoteDate.setText(note.getNoteTimeStamp());
-        edtNoteContent.setText(note.getNoteContent());
+    public void display(Note note) {
+        edtNoteTitle.setText(note.title);
+        edtNoteContent.setText(note.content);
         //TODO: Decrease title font size if line > 1
     }
 

@@ -19,7 +19,9 @@ import javax.inject.Inject;
 
 import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.note.Note;
 import fr.notes.core.note.webservices.NoteClient;
+import fr.notes.core.note.webservices.NoteClientCallback;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.models.NoteModel;
 import fr.notes.utils.AppThemeUtils;
@@ -51,8 +53,6 @@ public class MainFragment extends BaseFragment {
     @AfterViews
     public void init() {
 
-        noteClient.loadNotes();
-
         tlbMain.setTitle(getString(R.string.app_name));
         display();
     }
@@ -77,25 +77,19 @@ public class MainFragment extends BaseFragment {
     }
 
     public void display() {
-        List<NoteModel> notes = new ArrayList<>();
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Balance", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", "Some content", "Sun, 8:00"));
-        notes.add(new NoteModel("Tasks", getString(R.string.default_note_content), "Sun, 8:00"));
-
         if (!isDetached()) {
-            viewNotes.bind(notes);
+            noteClient.loadNotes(new NoteClientCallback<List<Note>>() {
+                @Override
+                public void success(List<Note> notes) {
+                    viewNotes.bind(notes);
+                }
+
+                @Override
+                public void failure(Throwable throwable) {
+                    Logs.error(this, "Failed loading notes: " + throwable.getMessage());
+                }
+            });
+
         }
     }
 
