@@ -44,4 +44,9 @@ public class NotesCardViewRecycleAdapter extends BaseRecyclerViewAdapter<NoteMod
         NoteModel noteModel = items.get(position);
         noteCardView.setNoteModel(noteModel);
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

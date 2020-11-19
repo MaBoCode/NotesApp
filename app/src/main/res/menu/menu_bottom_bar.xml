@@ -2,33 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/grpBottomDetailsMenu"
-        android:checkableBehavior="all"
         >
 
         <item
             android:id="@+id/itmShare"
-            android:title="Share"
-            android:icon="@drawable/note_details_share_selector"
-            app:showAsAction="always"
+            android:title="@string/menu_share"
+            android:icon="@drawable/ic_share_outline"
             />
         <item
             android:id="@+id/itmFavorite"
-            android:title="Favorite"
+            android:title="@string/menu_favorite"
             android:icon="@drawable/note_details_fav_selector"
-            app:showAsAction="always"
+            android:checked="true"
             />
 
         <item
             android:id="@+id/itmDelete"
-            android:title="Delete"
-            android:icon="@drawable/note_details_delete_selector"
-            app:showAsAction="always"
+            android:title="@string/menu_delete"
+            android:icon="@drawable/ic_delete_outline"
             />
         <item
             android:id="@+id/itmPrint"
-            android:title="Print"
-            android:icon="@drawable/note_details_print_selector"
-            app:showAsAction="always"
+            android:title="@string/menu_print"
+            android:icon="@drawable/ic_print_outline"
             />
 
     </group>

@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="primaryColor">#0336ff</color>
-    <color name="secondaryColor">#0035c9</color>
-    <color name="tertiaryColor">#ffc000</color>
-    <color name="surfaceColor">#040407</color>
+    <color name="primaryColor">#0000c1</color>
+    <color name="primaryColorVariant">#142EF5</color>
+    <color name="onPrimaryColor">#DFE2EA</color>
 
-    <color name="onPrimaryColor">#171C26</color>
-    <color name="onPrimarySurfaceColor">#171C26</color>
-    <color name="onSecondaryColor">#ffffff</color>
-    <color name="onSurfaceColor">#ffffff</color>
+    <color name="secondaryColor">#c7a200</color>
+    <color name="secondaryColorVariant">#FFD303</color>
+    <color name="onSecondaryColor">#040407</color>
 
-    <color name="primaryColorVariant">#0035c9</color>
-    <color name="tertiaryColorVariant">#ffd303</color>
-    <color name="errorColor">#b00020</color>
+    <color name="backgroundColor">#040407</color>
+    <color name="onBackgroundColor">#DFE2EA</color>
+
+    <color name="surfaceColor">#171C25</color>
+    <color name="onSurfaceColor">#BAC2D3</color>
+
+    <color name="errorColor">#B00020</color>
 
     <color name="lightGrayColor">#DFE2EA</color>
-    <color name="darkGrayColor">#171C26</color>
+    <color name="lightGrayColor2">#bac2d3</color>
+    <color name="lightGrayColor3">#b2bacd</color>
+
+    <color name="darkGrayColor">#4e4a56</color>
 
     <color name="borderColor">#171C26</color>
 

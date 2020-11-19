@@ -15,12 +15,7 @@ public class NoteModel implements Serializable {
         this.noteTitle = noteTitle;
         this.noteContent = noteContent;
         this.noteTimeStamp = noteTimeStamp;
-
-        if (noteContent != null && !noteContent.isEmpty()) {
-            this.lineCount = countContentLines();
-        } else {
-            this.lineCount = 0;
-        }
+        this.lineCount = countContentLines();
     }
 
     public String getNoteTitle() {

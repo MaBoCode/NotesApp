@@ -1,16 +1,13 @@
 package fr.notes.views.notes;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.cardview.widget.CardView;
+
+import com.google.android.material.card.MaterialCardView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -19,22 +16,19 @@ import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Random;
-
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
-import fr.notes.utils.DimUtils;
-import fr.notes.utils.Logs;
-import fr.notes.views.base.BaseRenderedTextView;
 import fr.notes.views.events.ShowFragmentEvent;
+import fr.notes.views.notes.events.NoteCardDeselectedEvent;
+import fr.notes.views.notes.events.NoteCardSelectedEvent;
 
 @EViewGroup(R.layout.view_note)
 public class NoteCardView extends BaseFrameLayout {
 
     @ViewById
-    protected CardView viewNoteCard;
+    protected MaterialCardView viewNoteCard;
     @ViewById
     protected TextView txtNoteTitle;
     @ViewById
@@ -43,6 +37,8 @@ public class NoteCardView extends BaseFrameLayout {
     protected TextView txtNoteDate;
 
     protected NoteModel noteModel;
+
+    protected boolean clickToSelect = false;
 
     public NoteCardView(@NonNull Context context) {
         super(context);
@@ -54,11 +50,6 @@ public class NoteCardView extends BaseFrameLayout {
 
     public NoteCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public NoteCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
@@ -75,25 +66,50 @@ public class NoteCardView extends BaseFrameLayout {
     public void display() {
 
         if (noteModel != null) {
-            int contentMaxLines = noteModel.getLineCount() / 15;
-            txtNoteContent.setMaxLines(contentMaxLines);
             txtNoteTitle.setText(noteModel.getNoteTitle());
             txtNoteContent.setText(noteModel.getNoteContent());
             txtNoteDate.setText(noteModel.getNoteTimeStamp());
+
+            txtNoteContent.setMaxLines(10);
         }
     }
 
     @Click(R.id.viewNoteCard)
     public void onCardClick() {
-        ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(noteModel).build());
-        event.replace = true;
-        event.addToBackStack = true;
-        bus.post(event);
+
+        if (clickToSelect) {
+            boolean isChecked = viewNoteCard.isChecked();
+
+            viewNoteCard.setChecked(!isChecked);
+
+            if (isChecked) {
+                bus.post(new NoteCardDeselectedEvent());
+            } else {
+                bus.post(new NoteCardSelectedEvent());
+            }
+        } else {
+            ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(noteModel).build());
+            event.replace = true;
+            event.addToBackStack = true;
+            bus.post(event);
+        }
     }
 
     @LongClick(R.id.viewNoteCard)
     public void onCardLongClick() {
+        boolean isChecked = viewNoteCard.isChecked();
 
+        viewNoteCard.setChecked(!isChecked);
+
+        if (isChecked) {
+            bus.post(new NoteCardDeselectedEvent());
+        } else {
+            bus.post(new NoteCardSelectedEvent());
+        }
+    }
+
+    public void setClickToSelect(boolean clickToSelect) {
+        this.clickToSelect = clickToSelect;
     }
 
     public void setNoteModel(NoteModel noteModel) {

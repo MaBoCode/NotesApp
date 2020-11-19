@@ -1,71 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?attr/colorSurface"
     >
 
-    <TextView
-        android:id="@+id/txtNoteTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-        android:text="Title"
-        android:textColor="?attr/colorOnSurface"
-        android:textStyle="bold"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lyConstraintNoteDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtNoteDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
-        android:text="Sep 13, 4:03 PM"
-        android:textStyle="bold"
-        android:paddingEnd="24dp"
-        android:paddingRight="24dp"
-        app:layout_constraintTop_toBottomOf="@id/txtNoteTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tlbMain"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            />
 
-    <EditText
-        android:id="@+id/edtNoteContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:textColor="?attr/colorOnSurface"
-        android:inputType="textCapSentences|textAutoComplete|textMultiLine|textAutoCorrect"
-        android:hint="Type here..."
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:gravity="top"
-        android:background="@null"
-        app:layout_constraintTop_toBottomOf="@id/txtNoteDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/viewBottomNav"
-        />
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tlbMain"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                >
+
+                <EditText
+                    android:id="@+id/edtNoteTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:textAppearance="@style/TextAppearance.Headline4"
+                    android:alpha="0.8"
+                    android:hint="@string/template_title"
+                    android:gravity="start"
+                    android:scrollHorizontally="false"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:includeFontPadding="false"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+
+                <HorizontalScrollView
+                    android:id="@+id/lyDateCategories"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:scrollbars="none"
+                    android:animateLayoutChanges="true"
+                    app:layout_constraintTop_toBottomOf="@id/edtNoteTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    >
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/grpChipCategories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            app:chipSpacingVertical="4dp"
+                            app:singleLine="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginEnd="10dp"
+                            />
+
+                        <AutoCompleteTextView
+                            android:id="@+id/txtNoteCategories"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:inputType="textCapWords"
+                            android:completionThreshold="1"
+                            android:imeOptions="actionDone"
+                            android:hint="@string/template_category"
+                            android:background="@null"
+                            android:textAppearance="@style/TextAppearance.Body1"
+                            android:layout_toEndOf="@id/grpChipCategories"
+                            android:layout_toRightOf="@id/grpChipCategories"
+                            />
+
+                    </RelativeLayout>
+
+                </HorizontalScrollView>
+
+                <TextView
+                    android:id="@+id/txtNoteDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:textAppearance="@style/TextAppearance.Caption"
+                    android:alpha="0.6"
+                    android:text="@string/template_date_time"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lyDateCategories"
+                    />
+
+                <EditText
+                    android:id="@+id/edtNoteContent"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:textAppearance="@style/TextAppearance.Body1"
+                    android:alpha="0.7"
+                    android:background="@null"
+                    android:padding="14dp"
+                    android:gravity="start|top"
+                    android:inputType="textMultiLine"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lyDateCategories"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/viewBottomNav"
-        android:theme="@style/Widget.Theme.Black.BottomNavigation"
-        android:layout_width="0dp"
+        android:id="@+id/tlbBottom"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:labelVisibilityMode="labeled"
+        app:itemIconTint="?attr/colorOnSurface"
+        app:itemTextColor="?attr/colorOnSurface"
+        android:layout_gravity="bottom"
+        app:layout_anchorGravity="bottom"
         app:menu="@menu/menu_bottom_bar"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/edtNoteContent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
