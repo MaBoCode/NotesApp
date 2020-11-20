@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -25,7 +24,6 @@ import org.androidannotations.annotations.ViewById;
 import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.R;
 import fr.notes.core.note.Note;
-import fr.notes.core.note.NoteViewModel;
 import fr.notes.injects.base.BaseFragment;
 
 @AndroidEntryPoint
