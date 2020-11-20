@@ -6,7 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
-import dagger.hilt.components.SingletonComponent;
 import fr.notes.injects.bus.AppBus;
 import fr.notes.injects.bus.AppBusOtto;
 

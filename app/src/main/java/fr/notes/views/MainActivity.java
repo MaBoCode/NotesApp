@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
-import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseActivity;
 import fr.notes.injects.base.BaseFragment;
