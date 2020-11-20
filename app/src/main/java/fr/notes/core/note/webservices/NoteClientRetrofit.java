@@ -1,11 +1,13 @@
 package fr.notes.core.note.webservices;
 
-import android.content.Context;
-
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import fr.notes.core.note.Note;
 import fr.notes.core.note.NoteRequest;
+import fr.notes.injects.base.BaseService;
 import fr.notes.injects.bus.AppBus;
 import fr.notes.utils.Logs;
 import retrofit2.Call;
@@ -13,23 +15,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class NoteClientRetrofit implements NoteClient {
+@Singleton
+public class NoteClientRetrofit extends BaseService implements NoteClient {
 
     private AppBus bus;
-    private Retrofit retrofit;
-    private Context context;
     private NoteService noteService;
 
-    public NoteClientRetrofit(AppBus bus, Retrofit retrofit, Context context) {
+    public NoteClientRetrofit(AppBus bus, Retrofit retrofit) {
         this.bus = bus;
-        this.retrofit = retrofit;
         this.noteService = retrofit.create(NoteService.class);
-        this.context = context;
     }
 
     @Override
-    public void loadNotes(NoteClientCallback<List<Note>> callback) {
-        long userId = 1;
+    public void loadNotes(Long userId, NoteClientCallback<List<Note>> callback) {
         Call<List<Note>> notes = noteService.getNotes(userId);
 
         notes.enqueue(new Callback<List<Note>>() {
@@ -46,8 +44,7 @@ public class NoteClientRetrofit implements NoteClient {
     }
 
     @Override
-    public void saveNote(String title, String content, NoteClientCallback<Note> callback) {
-        long userId = 1;
+    public void saveNote(Long userId, String title, String content, NoteClientCallback<Note> callback) {
         NoteRequest request = new NoteRequest();
         request.title = title;
         request.content = content;
@@ -66,8 +63,7 @@ public class NoteClientRetrofit implements NoteClient {
     }
 
     @Override
-    public void editNote(Long noteId, String title, String content, NoteClientCallback<Note> callback) {
-        long userId = 1;
+    public void editNote(Long userId, Long noteId, String title, String content, NoteClientCallback<Note> callback) {
         NoteRequest request = new NoteRequest();
         request.title = title;
         request.content = content;

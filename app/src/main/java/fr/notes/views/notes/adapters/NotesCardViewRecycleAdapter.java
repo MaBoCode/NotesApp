@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.notes.core.note.Note;
-import fr.notes.models.NoteModel;
 import fr.notes.views.base.BaseRecyclerViewAdapter;
 import fr.notes.views.base.RecyclerViewWrapper;
 import fr.notes.views.notes.NoteCardView;
