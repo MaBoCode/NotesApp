@@ -1,26 +1,23 @@
 package fr.notes.views;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.CheckedChange;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
-import fr.notes.App;
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.R;
 import fr.notes.core.note.Note;
-import fr.notes.core.note.webservices.NoteClient;
-import fr.notes.core.note.webservices.NoteClientCallback;
+import fr.notes.core.note.NoteViewModel;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.utils.AppThemeUtils;
 import fr.notes.utils.Logs;
@@ -29,11 +26,11 @@ import fr.notes.views.events.ShowFragmentEvent;
 import fr.notes.views.notes.NoteDetailsFragment_;
 import fr.notes.views.notes.NotesListView;
 
+@AndroidEntryPoint
 @EFragment(R.layout.frg_main)
 public class MainFragment extends BaseFragment {
 
-    @Inject
-    protected NoteClient noteClient;
+    protected NoteViewModel noteViewModel;
 
     @ViewById
     protected Toolbar tlbMain;
@@ -45,18 +42,20 @@ public class MainFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
+        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
         tlbMain.setTitle(getString(R.string.app_name));
         display();
     }
 
-    @Override
-    public void inject() {
-        ((App) appContext).appComponent.inject(this);
-    }
-
-    @Override
-    public void setTransitions() {
-
+    @UiThread(propagation = UiThread.Propagation.REUSE)
+    public void display() {
+        noteViewModel.getNotes().observe(this, new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
+                Logs.debug(this, "[DEBUG] changed");
+                viewNotes.bind(notes);
+            }
+        });
     }
 
     @Click(R.id.btnNewNote)
@@ -66,23 +65,6 @@ public class MainFragment extends BaseFragment {
         event.addToBackStack = true;
 
         bus.post(event);
-    }
-
-    public void display() {
-        if (!isDetached()) {
-            noteClient.loadNotes(new NoteClientCallback<List<Note>>() {
-                @Override
-                public void success(List<Note> notes) {
-                    viewNotes.bind(notes);
-                }
-
-                @Override
-                public void failure(Throwable throwable) {
-                    Logs.error(this, "Failed loading notes: " + throwable.getMessage());
-                }
-            });
-
-        }
     }
 
     @CheckedChange(R.id.swtTheme)
