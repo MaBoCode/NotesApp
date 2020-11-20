@@ -16,14 +16,9 @@ import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import javax.inject.Inject;
-
-import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
-import fr.notes.core.note.NoteViewModel;
 import fr.notes.injects.base.BaseFrameLayout;
-import fr.notes.models.NoteModel;
 import fr.notes.views.events.ShowFragmentEvent;
 import fr.notes.views.notes.events.NoteCardDeselectedEvent;
 import fr.notes.views.notes.events.NoteCardSelectedEvent;

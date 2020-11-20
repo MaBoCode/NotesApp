@@ -17,7 +17,6 @@ import retrofit2.Retrofit;
 @Singleton
 public class NoteClientRetrofit extends BaseService implements NoteClient {
 
-    private AppBus bus;
     private NoteService noteService;
 
     public NoteClientRetrofit(Retrofit retrofit) {
