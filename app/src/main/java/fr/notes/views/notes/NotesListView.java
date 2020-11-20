@@ -1,7 +1,6 @@
 package fr.notes.views.notes;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +8,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.squareup.otto.Subscribe;
 
-import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -17,12 +15,10 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseConstraintLayout;
 import fr.notes.utils.Logs;
-import fr.notes.views.base.BaseRecyclerViewAdapter;
 import fr.notes.views.notes.adapters.NotesCardViewRecycleAdapter;
 import fr.notes.views.notes.events.NoteCardDeselectedEvent;
 import fr.notes.views.notes.events.NoteCardSelectedEvent;
@@ -33,12 +29,12 @@ public class NotesListView extends BaseConstraintLayout {
     @ViewById
     protected RecyclerView lstNotes;
 
-    private List<Note> notes = new ArrayList<>();
-
     protected NotesCardViewRecycleAdapter notesCardViewRecycleAdapter;
     private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     protected int selectedCards = 0;
+
+    protected List<Note> notes = new ArrayList<>();
 
     public NotesListView(Context context) {
         super(context);
@@ -52,31 +48,33 @@ public class NotesListView extends BaseConstraintLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public void inject() {
-        ((App) App.getAppContext()).appComponent.inject(this);
-    }
-
     @UiThread(propagation = UiThread.Propagation.REUSE)
     public void display() {
-        if (notes != null) {
-            lstNotes.removeAllViews();
 
-            if (staggeredGridLayoutManager == null) {
-                staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                lstNotes.setLayoutManager(staggeredGridLayoutManager);
-            }
+        lstNotes.removeAllViews();
 
-            notesCardViewRecycleAdapter = new NotesCardViewRecycleAdapter(uiContext, notes);
-            lstNotes.setAdapter(notesCardViewRecycleAdapter);
+        if (staggeredGridLayoutManager == null) {
+            staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+            lstNotes.setLayoutManager(staggeredGridLayoutManager);
         }
+
+        notesCardViewRecycleAdapter = new NotesCardViewRecycleAdapter(uiContext, notes);
+        lstNotes.setAdapter(notesCardViewRecycleAdapter);
     }
 
     public void bind(List<Note> notes) {
-        if (notes != null) {
-            this.notes = notes;
+        updateDataSet(notes);
+        if (notesCardViewRecycleAdapter == null) {
             display();
+        } else {
+            notesCardViewRecycleAdapter.setItems(this.notes);
+            notesCardViewRecycleAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void updateDataSet(List<Note> notes) {
+        this.notes.clear();
+        this.notes.addAll(notes);
     }
 
     @Subscribe

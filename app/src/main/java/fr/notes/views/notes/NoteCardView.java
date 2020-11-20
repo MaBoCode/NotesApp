@@ -16,9 +16,12 @@ import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import javax.inject.Inject;
+
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
+import fr.notes.core.note.NoteViewModel;
 import fr.notes.injects.base.BaseFrameLayout;
 import fr.notes.models.NoteModel;
 import fr.notes.views.events.ShowFragmentEvent;
@@ -53,11 +56,6 @@ public class NoteCardView extends BaseFrameLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public void inject() {
-        ((App) App.getAppContext()).appComponent.inject(this);
-    }
-
     @AfterViews
     public void init() {
         display();
@@ -88,6 +86,7 @@ public class NoteCardView extends BaseFrameLayout {
                 bus.post(new NoteCardSelectedEvent());
             }
         } else {
+
             ShowFragmentEvent event = new ShowFragmentEvent(NoteDetailsFragment_.builder().note(note).editMode(true).build());
             event.replace = true;
             event.addToBackStack = true;

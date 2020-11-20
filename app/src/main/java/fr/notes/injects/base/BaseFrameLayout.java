@@ -13,9 +13,10 @@ import org.androidannotations.annotations.EViewGroup;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.injects.bus.AppBus;
 
-@EViewGroup
+@AndroidEntryPoint
 public abstract class BaseFrameLayout extends FrameLayout {
 
     @Inject
@@ -45,14 +46,9 @@ public abstract class BaseFrameLayout extends FrameLayout {
         init(context);
     }
 
-    public abstract void inject();
-
     private void init(Context context) {
         this.appContext = context.getApplicationContext();
         this.uiContext = context;
-        if (!isInEditMode()) {
-            inject();
-        }
     }
 
     @Override
