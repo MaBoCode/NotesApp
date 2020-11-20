@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import javax.inject.Inject;
 
+import dagger.hilt.EntryPoints;
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.R;
 import fr.notes.injects.bus.AppBus;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends FragmentActivity {
 
     @Inject
     protected AppBus bus;
@@ -26,11 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         this.appContext = getApplicationContext();
         this.uiContext = this;
-
-        inject();
     }
-
-    public abstract void inject();
 
     @Override
     protected void onStart() {

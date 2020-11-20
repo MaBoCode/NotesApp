@@ -15,6 +15,7 @@ import java.util.LinkedList;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.injects.base.BaseActivity;
@@ -24,6 +25,7 @@ import fr.notes.utils.Logs;
 import fr.notes.views.events.PopFragmentEvent;
 import fr.notes.views.events.ShowFragmentEvent;
 
+@AndroidEntryPoint
 @EActivity(R.layout.act_main)
 public class MainActivity extends BaseActivity {
 
@@ -42,14 +44,8 @@ public class MainActivity extends BaseActivity {
         lastSavedInstanceState = savedInstanceState;
     }
 
-    @Override
-    public void inject() {
-        ((App) appContext).appComponent.inject(this);
-    }
-
     @AfterViews
     public void bind() {
-
         displayFirstFragment();
     }
 
@@ -122,14 +118,13 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        Logs.debug(this, "[DEBUG] fragments: " + fragments.size());
+        Logs.info(this, "fragments: " + fragments.size());
 
         if (!lastFragmentOnBackPressed()) {
             if (fragments.size() > 1) {
                 popFragment(new PopFragmentEvent());
             }
         } else {
-            Logs.debug(this, "[DEBUG] finish");
             finish();
         }
     }
