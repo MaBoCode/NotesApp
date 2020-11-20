@@ -6,8 +6,10 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
+import fr.notes.core.note.cache.NoteDao;
 import fr.notes.core.note.repositories.NoteRepository;
-import fr.notes.core.note.webservices.NoteClient;
+import fr.notes.core.note.util.NoteCacheEntityMapper;
+import fr.notes.core.note.util.NoteEntityMapper;
 import fr.notes.core.note.webservices.NoteService;
 
 @Module
@@ -16,7 +18,9 @@ public class RepositoryModule {
 
     @Provides
     @Singleton
-    public NoteRepository provideNoteRepository(NoteClient noteClient) {
-        return new NoteRepository(noteClient);
+    public NoteRepository provideNoteRepository(
+            NoteDao noteDao, NoteService noteService,
+            NoteCacheEntityMapper cacheEntityMapper, NoteEntityMapper entityMapper) {
+        return new NoteRepository(noteDao, noteService, cacheEntityMapper, entityMapper);
     }
 }

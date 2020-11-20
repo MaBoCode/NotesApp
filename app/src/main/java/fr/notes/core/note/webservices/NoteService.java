@@ -14,18 +14,18 @@ import retrofit2.http.Path;
 public interface NoteService {
 
     @GET("users/{userId}/notes")
-    Call<List<Note>> getNotes(
+    List<Note> getNotes(
             @Path("userId") Long userId
     );
 
     @POST("users/{userId}/notes")
-    Call<Note> addNote(
+    Note addNote(
             @Path("userId") Long userId,
             @Body NoteRequest request
     );
 
     @PUT("users/{userId}/notes/{noteId}")
-    Call<Note> updateNote(
+    Note updateNote(
             @Path("userId") Long userId,
             @Path("noteId") Long noteId,
             @Body NoteRequest request

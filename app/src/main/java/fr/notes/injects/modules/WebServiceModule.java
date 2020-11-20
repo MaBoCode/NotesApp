@@ -6,8 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
-import fr.notes.core.note.webservices.NoteClient;
-import fr.notes.core.note.webservices.NoteClientRetrofit;
+import fr.notes.core.note.webservices.NoteService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,7 +34,7 @@ public class WebServiceModule {
 
     @Provides
     @Singleton
-    public NoteClient provideNoteClient(Retrofit retrofit) {
-        return new NoteClientRetrofit(retrofit);
+    public NoteService provideNoteService(Retrofit retrofit) {
+        return retrofit.create(NoteService.class);
     }
 }
