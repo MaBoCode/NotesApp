@@ -38,7 +38,7 @@ public class WebServiceModule {
 
     @Provides
     @Singleton
-    public NoteClient provideNoteClient(AppBus bus, Retrofit retrofit) {
-        return new NoteClientRetrofit(bus, retrofit);
+    public NoteClient provideNoteClient(Retrofit retrofit) {
+        return new NoteClientRetrofit(retrofit);
     }
 }

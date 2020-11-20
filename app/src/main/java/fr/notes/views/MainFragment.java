@@ -30,8 +30,6 @@ import fr.notes.views.notes.NotesListView;
 @EFragment(R.layout.frg_main)
 public class MainFragment extends BaseFragment {
 
-    protected NoteViewModel noteViewModel;
-
     @ViewById
     protected Toolbar tlbMain;
     @ViewById
@@ -42,20 +40,13 @@ public class MainFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
         tlbMain.setTitle(getString(R.string.app_name));
         display();
     }
 
     @UiThread(propagation = UiThread.Propagation.REUSE)
     public void display() {
-        noteViewModel.getNotes().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-                Logs.debug(this, "[DEBUG] changed");
-                viewNotes.bind(notes);
-            }
-        });
+
     }
 
     @Click(R.id.btnNewNote)

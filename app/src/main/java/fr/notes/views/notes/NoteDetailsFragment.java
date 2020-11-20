@@ -8,9 +8,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.chip.Chip;
@@ -24,24 +22,16 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
-import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
 import fr.notes.core.note.NoteViewModel;
-import fr.notes.core.note.webservices.NoteClient;
-import fr.notes.core.note.webservices.NoteClientCallback;
 import fr.notes.injects.base.BaseFragment;
-import fr.notes.utils.Logs;
 
 @AndroidEntryPoint
 @EFragment(R.layout.frg_note_details)
 @OptionsMenu(R.menu.menu_empty)
 public class NoteDetailsFragment extends BaseFragment {
-
-    protected NoteViewModel noteViewModel;
 
     @FragmentArg
     protected Note note;
@@ -65,8 +55,6 @@ public class NoteDetailsFragment extends BaseFragment {
 
     @AfterViews
     public void init() {
-        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
-
         tlbMain.setTitle("");
 
         //((FragmentActivity) getActivity()).setSupportActionBar(tlbMain);
@@ -126,9 +114,9 @@ public class NoteDetailsFragment extends BaseFragment {
             String noteTitle = edtNoteTitle.getText().toString();
             String noteContent = edtNoteContent.getText().toString();
             if (editMode) {
-                noteViewModel.editNote(note.id, noteTitle, noteContent);
+                //noteViewModel.editNote(note.id, noteTitle, noteContent);
             } else {
-                noteViewModel.saveNote(noteTitle, noteContent);
+                //noteViewModel.saveNote(noteTitle, noteContent);
             }
         }
 
