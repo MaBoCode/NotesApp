@@ -7,8 +7,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.injects.bus.AppBus;
 
+@AndroidEntryPoint
 public abstract class BaseConstraintLayout extends ConstraintLayout {
 
     @Inject
@@ -32,14 +34,9 @@ public abstract class BaseConstraintLayout extends ConstraintLayout {
         init(context);
     }
 
-    public abstract void inject();
-
     private void init(Context context) {
         this.appContext = context.getApplicationContext();
         this.uiContext = context;
-        if (!isInEditMode()) {
-            inject();
-        }
     }
 
     @Override

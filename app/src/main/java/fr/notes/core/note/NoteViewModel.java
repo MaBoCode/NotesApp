@@ -48,5 +48,4 @@ public class NoteViewModel extends ViewModel {
     public LiveData<List<Note>> getNotes() {
         return notes;
     }
-
 }

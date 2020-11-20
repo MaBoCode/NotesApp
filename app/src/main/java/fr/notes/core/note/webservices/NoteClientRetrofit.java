@@ -9,7 +9,6 @@ import fr.notes.core.note.Note;
 import fr.notes.core.note.NoteRequest;
 import fr.notes.injects.base.BaseService;
 import fr.notes.injects.bus.AppBus;
-import fr.notes.utils.Logs;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,8 +20,7 @@ public class NoteClientRetrofit extends BaseService implements NoteClient {
     private AppBus bus;
     private NoteService noteService;
 
-    public NoteClientRetrofit(AppBus bus, Retrofit retrofit) {
-        this.bus = bus;
+    public NoteClientRetrofit(Retrofit retrofit) {
         this.noteService = retrofit.create(NoteService.class);
     }
 

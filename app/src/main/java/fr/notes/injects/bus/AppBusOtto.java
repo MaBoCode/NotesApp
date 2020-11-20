@@ -5,22 +5,16 @@ import android.os.Looper;
 
 import com.squareup.otto.Bus;
 
+import fr.notes.utils.Logs;
+
 public class AppBusOtto implements AppBus {
 
     private final Handler mainLooper = new Handler(Looper.getMainLooper());
 
-    private static AppBusOtto instance = null;
-    private static Bus bus = null;
+    private Bus bus;
 
     public AppBusOtto() {
-        bus = new Bus();
-    }
-
-    public static AppBusOtto getInstance() {
-        if (instance == null) {
-            instance = new AppBusOtto();
-        }
-        return instance;
+        this.bus = new Bus();
     }
 
     @Override

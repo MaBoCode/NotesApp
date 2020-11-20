@@ -1,25 +1,22 @@
 package fr.notes.injects.modules;
 
-import android.content.Context;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
 import fr.notes.core.note.repositories.NoteRepository;
+import fr.notes.core.note.webservices.NoteClient;
+import fr.notes.core.note.webservices.NoteService;
 
 @Module
+@InstallIn(ApplicationComponent.class)
 public class RepositoryModule {
-
-    private Context context;
-
-    public RepositoryModule(Context context) {
-        this.context = context;
-    }
 
     @Provides
     @Singleton
-    public NoteRepository provideNoteRepository() {
-        return null;
+    public NoteRepository provideNoteRepository(NoteClient noteClient) {
+        return new NoteRepository(noteClient);
     }
 }

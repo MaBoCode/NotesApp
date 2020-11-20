@@ -6,17 +6,17 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
-import dagger.hilt.components.SingletonComponent;
-import fr.notes.injects.bus.AppBus;
-import fr.notes.injects.bus.AppBusOtto;
+import fr.notes.core.note.NoteViewModel;
+import fr.notes.core.note.repositories.NoteRepository;
 
 @Module
 @InstallIn(ApplicationComponent.class)
-public class MainModule {
+public class ViewModelModule {
 
-    @Singleton
     @Provides
-    public AppBus provideBus() {
-        return new AppBusOtto();
+    @Singleton
+    public NoteViewModel provideNoteViewModel(NoteRepository noteRepository) {
+        return new NoteViewModel(noteRepository);
     }
+
 }

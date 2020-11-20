@@ -10,10 +10,11 @@ import org.androidannotations.annotations.EFragment;
 
 import javax.inject.Inject;
 
+import dagger.hilt.EntryPoints;
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.App;
 import fr.notes.injects.bus.AppBus;
 
-@EFragment
 public abstract class BaseFragment extends Fragment {
 
     @Inject
@@ -22,8 +23,6 @@ public abstract class BaseFragment extends Fragment {
     protected Context appContext;
     protected Context uiContext;
 
-    public abstract void inject();
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +30,7 @@ public abstract class BaseFragment extends Fragment {
         appContext = App.getAppContext();
         uiContext = this.getActivity();
 
-        inject();
-
         bus.register(this);
-
-        setTransitions();
     }
 
     @Override
@@ -55,6 +50,4 @@ public abstract class BaseFragment extends Fragment {
     public boolean onBackPressed() {
         return false;
     }
-
-    public abstract void setTransitions();
 }
