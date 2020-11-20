@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -24,20 +26,22 @@ import org.androidannotations.annotations.ViewById;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import fr.notes.App;
 import fr.notes.R;
 import fr.notes.core.note.Note;
+import fr.notes.core.note.NoteViewModel;
 import fr.notes.core.note.webservices.NoteClient;
 import fr.notes.core.note.webservices.NoteClientCallback;
 import fr.notes.injects.base.BaseFragment;
 import fr.notes.utils.Logs;
 
+@AndroidEntryPoint
 @EFragment(R.layout.frg_note_details)
 @OptionsMenu(R.menu.menu_empty)
 public class NoteDetailsFragment extends BaseFragment {
 
-    @Inject
-    protected NoteClient noteClient;
+    protected NoteViewModel noteViewModel;
 
     @FragmentArg
     protected Note note;
@@ -59,28 +63,23 @@ public class NoteDetailsFragment extends BaseFragment {
 
     protected boolean textChanged = false;
 
-    @Override
-    public void inject() {
-        ((App) appContext).appComponent.inject(this);
-    }
-
     @AfterViews
     public void init() {
+        noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+
         tlbMain.setTitle("");
-        ((AppCompatActivity) getActivity()).setSupportActionBar(tlbMain);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        if (note != null) {
-            display(note);
-        }
-    }
+        //((FragmentActivity) getActivity()).setSupportActionBar(tlbMain);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    @Override
-    public void setTransitions() {
-
+        display(note);
     }
 
     public void display(Note note) {
+        if (note == null) {
+            return;
+        }
+
         edtNoteTitle.setText(note.title);
         edtNoteContent.setText(note.content);
         //TODO: Decrease title font size if line > 1
@@ -126,32 +125,11 @@ public class NoteDetailsFragment extends BaseFragment {
         if (textChanged) {
             String noteTitle = edtNoteTitle.getText().toString();
             String noteContent = edtNoteContent.getText().toString();
-
             if (editMode) {
-                noteClient.editNote(note.id, noteTitle, noteContent, new NoteClientCallback<Note>() {
-                    @Override
-                    public void success(Note object) {
-
-                    }
-
-                    @Override
-                    public void failure(Throwable throwable) {
-                        Logs.error(this, throwable.getMessage());
-                    }
-                });
+                noteViewModel.editNote(note.id, noteTitle, noteContent);
             } else {
-                noteClient.saveNote(noteTitle, noteContent, new NoteClientCallback<Note>() {
-                    @Override
-                    public void success(Note note) {
-                    }
-
-                    @Override
-                    public void failure(Throwable throwable) {
-                        Logs.error(this, throwable.getMessage());
-                    }
-                });
+                noteViewModel.saveNote(noteTitle, noteContent);
             }
-
         }
 
         return super.onBackPressed();
