@@ -4,16 +4,19 @@ import androidx.hilt.Assisted;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
+
+import com.squareup.otto.Subscribe;
 
 import java.util.List;
 
-import fr.notes.core.events.BaseStateEvent;
-import fr.notes.core.events.GetNotesStateEvent;
+import fr.notes.core.events.AddNoteStateEvent;
+import fr.notes.core.events.EditNoteStateEvent;
+import fr.notes.core.events.FetchNotesStateEvent;
 import fr.notes.core.note.repositories.NoteRepository;
 import fr.notes.core.util.DataState;
+import fr.notes.injects.base.BaseViewModel;
 
-public class NoteViewModel extends ViewModel {
+public class NoteViewModel extends BaseViewModel {
 
     protected Long userId = 1L;
 
@@ -28,21 +31,38 @@ public class NoteViewModel extends ViewModel {
         this.savedStateHandle = savedStateHandle;
     }
 
-    public void setStateEvent(BaseStateEvent event) {
-        if (event instanceof GetNotesStateEvent) {
-            DataState<List<Note>> newDataState = noteRepository.fetchNotes(userId);
-            dataState.setValue(newDataState);
-        }
-    }
-
-    /*
     @Subscribe
-    public void getNotes(GetNotesStateEvent event) {
-        DataState<List<Note>> newDataState = noteRepository.fetchNotes(userId);
-        dataState.setValue(newDataState);
+    public void fetchNotes(FetchNotesStateEvent event) {
+        noteRepository.fetchNotes(userId, new NoteRepository.NoteRepositoryCallback<List<Note>>() {
+            @Override
+            public void onComplete(DataState<List<Note>> result) {
+                dataState.postValue(result);
+            }
+        });
     }
 
-     */
+    @Subscribe
+    public void editNote(EditNoteStateEvent event) {
+        NoteRequest request = new NoteRequest();
+        request.title = event.title;
+        request.content = event.content;
+        noteRepository.editNote(userId, event.noteId, request, new NoteRepository.NoteRepositoryCallback<List<Note>>() {
+            @Override
+            public void onComplete(DataState<List<Note>> result) {
+                dataState.postValue(result);
+            }
+        });
+    }
+
+    @Subscribe
+    public void addNote(AddNoteStateEvent event) {
+        noteRepository.addNote(userId, event.title, event.content, new NoteRepository.NoteRepositoryCallback<List<Note>>() {
+            @Override
+            public void onComplete(DataState<List<Note>> result) {
+                dataState.postValue(result);
+            }
+        });
+    }
 
     public MutableLiveData<DataState<List<Note>>> getDataState() {
         return dataState;
