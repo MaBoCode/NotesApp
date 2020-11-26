@@ -1,5 +1,8 @@
 package fr.notes.injects.modules;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -17,5 +20,11 @@ public class MainModule {
     @Provides
     public AppBus provideBus() {
         return new AppBusOtto();
+    }
+
+    @Singleton
+    @Provides
+    public Executor provideExecutor() {
+        return Executors.newFixedThreadPool(1);
     }
 }
