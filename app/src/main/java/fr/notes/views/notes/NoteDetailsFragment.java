@@ -8,6 +8,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.chip.Chip;
@@ -55,8 +56,8 @@ public class NoteDetailsFragment extends BaseFragment {
     public void init() {
         tlbMain.setTitle("");
 
-        //((FragmentActivity) getActivity()).setSupportActionBar(tlbMain);
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(tlbMain);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         display(note);
     }
