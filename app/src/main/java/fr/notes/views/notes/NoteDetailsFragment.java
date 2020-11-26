@@ -22,10 +22,21 @@ import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import dagger.hilt.android.AndroidEntryPoint;
+import fr.notes.App;
 import fr.notes.R;
+import fr.notes.core.events.AddNoteStateEvent;
+import fr.notes.core.events.EditNoteStateEvent;
 import fr.notes.core.note.Note;
+import fr.notes.core.note.NoteViewModel;
 import fr.notes.injects.base.BaseFragment;
+import fr.notes.utils.Logs;
 
 @AndroidEntryPoint
 @EFragment(R.layout.frg_note_details)
@@ -50,10 +61,14 @@ public class NoteDetailsFragment extends BaseFragment {
     @ViewById
     protected EditText edtNoteContent;
 
+    protected NoteViewModel noteViewModel;
+
     protected boolean textChanged = false;
 
     @AfterViews
     public void init() {
+        noteViewModel = App.getViewModel(requireActivity(), NoteViewModel.class);
+
         tlbMain.setTitle("");
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(tlbMain);
@@ -69,6 +84,18 @@ public class NoteDetailsFragment extends BaseFragment {
 
         edtNoteTitle.setText(note.title);
         edtNoteContent.setText(note.content);
+
+        if (!note.dateAndTime.isEmpty()) {
+            try {
+                DateFormat dbFormat = new SimpleDateFormat("EEEE, MMMM d, yyyy, h:mm a", Locale.getDefault());
+                Date date = dbFormat.parse(note.dateAndTime);
+                DateFormat finalFormat = new SimpleDateFormat("MMM. d, h:mm a", Locale.getDefault());
+                txtNoteDate.setText(finalFormat.format(date));
+            } catch (ParseException e) {
+                Logs.error(this, e.getMessage());
+            }
+        }
+
         //TODO: Decrease title font size if line > 1
     }
 
@@ -112,10 +139,23 @@ public class NoteDetailsFragment extends BaseFragment {
         if (textChanged) {
             String noteTitle = edtNoteTitle.getText().toString();
             String noteContent = edtNoteContent.getText().toString();
+
             if (editMode) {
-                //noteViewModel.editNote(note.id, noteTitle, noteContent);
+                EditNoteStateEvent editNoteEvent = new EditNoteStateEvent();
+                editNoteEvent.noteId = note.id;
+                editNoteEvent.title = noteTitle;
+                editNoteEvent.content = noteContent;
+                bus.post(editNoteEvent);
             } else {
-                //noteViewModel.saveNote(noteTitle, noteContent);
+
+                AddNoteStateEvent addNoteEvent = new AddNoteStateEvent();
+                addNoteEvent.title = noteTitle;
+                if (noteTitle.isEmpty() && !noteContent.isEmpty()) {
+                    int endIndex = Math.min(noteContent.length(), 8);
+                    addNoteEvent.title = noteContent.substring(0, endIndex);
+                }
+                addNoteEvent.content = noteContent;
+                bus.post(addNoteEvent);
             }
         }
 
