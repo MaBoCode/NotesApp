@@ -1,5 +1,7 @@
 package fr.notes.injects.modules;
 
+import java.util.concurrent.Executor;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -20,7 +22,8 @@ public class RepositoryModule {
     @Singleton
     public NoteRepository provideNoteRepository(
             NoteDao noteDao, NoteService noteService,
-            NoteCacheEntityMapper cacheEntityMapper, NoteEntityMapper entityMapper) {
-        return new NoteRepository(noteDao, noteService, cacheEntityMapper, entityMapper);
+            NoteCacheEntityMapper cacheEntityMapper, NoteEntityMapper entityMapper,
+            Executor executor) {
+        return new NoteRepository(noteDao, noteService, cacheEntityMapper, entityMapper, executor);
     }
 }
