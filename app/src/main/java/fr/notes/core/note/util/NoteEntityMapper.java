@@ -21,7 +21,8 @@ public class NoteEntityMapper implements EntityMapper<NoteEntity, Note> {
         return new Note(
                 entity.id,
                 entity.title,
-                entity.content
+                entity.content,
+                entity.dateAndTime
         );
     }
 
@@ -30,7 +31,8 @@ public class NoteEntityMapper implements EntityMapper<NoteEntity, Note> {
         return new NoteEntity(
                 model.id,
                 model.title,
-                model.content
+                model.content,
+                model.dateAndTime
         );
     }
 

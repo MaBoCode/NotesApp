@@ -20,7 +20,8 @@ public class NoteCacheEntityMapper implements EntityMapper<NoteCacheEntity, Note
         return new Note(
                 entity.id,
                 entity.title,
-                entity.content
+                entity.content,
+                entity.dateAndTime
         );
     }
 
@@ -29,7 +30,8 @@ public class NoteCacheEntityMapper implements EntityMapper<NoteCacheEntity, Note
         return new NoteCacheEntity(
                 model.id,
                 model.title,
-                model.content
+                model.content,
+                model.dateAndTime
         );
     }
 

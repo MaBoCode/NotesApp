@@ -13,9 +13,13 @@ public class NoteEntity {
     @SerializedName("content")
     public String content;
 
-    public NoteEntity(Long id, String title, String content) {
+    @SerializedName("dateAndTime")
+    public String dateAndTime;
+
+    public NoteEntity(Long id, String title, String content, String dateAndTime) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.dateAndTime = dateAndTime;
     }
 }
