@@ -1,5 +1,8 @@
 package fr.notes.injects.modules;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,11 +26,19 @@ public class WebServiceModule {
 
     @Provides
     @Singleton
-    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
-        String serverUrl = "http://192.168.5.18:3000/api/";
+    public Gson provideGson() {
+        return new GsonBuilder()
+                .setDateFormat("EEEE, MMMM d, yyyy, h:mm a")
+                .create();
+    }
+
+    @Provides
+    @Singleton
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
+        String serverUrl = "http://HOST_IP:3000/api/";
         return new Retrofit.Builder()
                 .baseUrl(serverUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
     }
