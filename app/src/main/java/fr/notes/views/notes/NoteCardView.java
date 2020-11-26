@@ -16,9 +16,16 @@ import org.androidannotations.annotations.LongClick;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import fr.notes.R;
 import fr.notes.core.note.Note;
 import fr.notes.injects.base.BaseFrameLayout;
+import fr.notes.utils.Logs;
 import fr.notes.views.events.ShowFragmentEvent;
 import fr.notes.views.notes.events.NoteCardDeselectedEvent;
 import fr.notes.views.notes.events.NoteCardSelectedEvent;
@@ -62,8 +69,18 @@ public class NoteCardView extends BaseFrameLayout {
         if (note != null) {
             txtNoteTitle.setText(note.title);
             txtNoteContent.setText(note.content);
-
             txtNoteContent.setMaxLines(10);
+
+            if (!note.dateAndTime.isEmpty()) {
+                try {
+                    DateFormat dbFormat = new SimpleDateFormat("EEEE, MMMM d, yyyy, h:mm a", Locale.getDefault());
+                    DateFormat finalFormat = new SimpleDateFormat("MMM. d", Locale.getDefault());
+                    Date date = dbFormat.parse(note.dateAndTime);
+                    txtNoteDate.setText(finalFormat.format(date));
+                } catch (ParseException e) {
+                    Logs.error(this, e.getMessage());
+                }
+            }
         }
     }
 
