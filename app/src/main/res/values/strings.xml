@@ -20,8 +20,8 @@
         "It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\n"
     </string>
 
-    <string name="template_date_time">Monday, 1 January 2020 9:00 PM</string>
-    <string name="template_date_time_contracted">Jan. 1 2020</string>
+    <string name="template_date_time">Nov. 26, 5:28 AM</string>
+    <string name="template_date_time_contracted">Nov. 26</string>
     <string name="template_title">Title</string>
     <string name="template_content">Content</string>
     <string name="template_tag">Tag</string>
